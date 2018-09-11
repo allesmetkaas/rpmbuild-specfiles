@@ -8,7 +8,7 @@
 # to create a new srpm after updating the commit id
 
 #%global commit c651664720d1fc21aeb36ca8dbb625a874af1d97
-%global commit 2aa1d36080b665a93205b81c09a6f9e4494f324e
+%global commit 78959fe5b22344f520fa5d5f47a240e7314d6fcb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define tinyproxy_confdir %{_sysconfdir}/tinyproxy
@@ -62,7 +62,7 @@ make %{?_smp_mflags}
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
-sed -i 's/\/sbin\//\/bin\//' %{buildroot}%{_prefix}/lib/systemd/system/%{name}.service
+sed -i 's/\/sbin\//\/bin\//' %{SOURCE1}
 %{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_prefix}/lib/systemd/system/%{name}.service
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
@@ -117,6 +117,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Wed Sep 12 2018 Chris Hockey <allesmetkaas@users.noreply.github.com> - 1.9.0-78959f
+- Updated to git commit 78959fe5b22344f520fa5d5f47a240e7314d6fcb
+
 * Tue Sep 11 2018 Chris Hockey <allesmetkaas@users.noreply.github.com> - 1.9.0-2aa1d3
 - Forked tinyproxy to fix upstream password datatype
 
